@@ -1,0 +1,308 @@
+---
+layout: article
+title: "Clean Architecture는 iOS에 과하다"
+key: 2020-04-10
+excerpt: "SwiftUI와 Combine을 사용해 Clean Architecture를 구현해보고, 왜 Clean Architecture가 iOS 환경에 어울리지 않는지 주장한다."
+tags: [swift, ios, swiftui, combine, clean-architecture, architecture, 코딩]
+comments: true
+---
+
+![Figure 1](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
+
+# 목차
+
+# Clean Architecture?
+
+몇 주 전 미루고 미루던
+[Clean Architecture](https://www.amazon.com/dp/0134494164)를 완독하였다.
+그리고 기대가 컸던 탓인지 실망도 컸다.
+우선, 평소에 읽는 서적들과 달리 정보의 밀도가 굉장히 낮았다.
+이곳저곳 흥미있는 내용과 경험에서 나오는 조언이 있었지만, 책을 읽는 내내 같은
+말을 반복한다는 느낌이 떠나지 않았다.
+결국 핵심은 의존성 역전(Dependency Inversion)과 구조 사이의 선을 잘 그으라는
+것.
+책은 이를 중심으로 다양한 사례와 경험을 서술한다.
+그 중 가장 유명하고 이 책의 제목을 본딴 '디자인 패턴'이 위 그림에 나온 Clean
+Architecture이다.
+
+이미 제목을 보았겠지만, 이 글은 Clean Architecture를 iOS에 적용하여 얼마나
+코드가 깔끔해졌는지, 얼마나 정돈이 잘 되었는지를 설명하는 글이 아니다.
+다만 들어가기 전에 오해하지 말아야 할 점은, 필자는 Clean Architecture가
+잘못되었다고 주장하는 것이 아니라는 점이다.
+서버나 Java로 작성된 엔터프라이즈 소프트웨어를 작성하는 것이 아니라 iOS 앱을
+개발하는 것이라면, Clean Architecture는 적합하지 않다는 것이다.
+특히 SwiftUI와 Combine을 통해 네이티브하게 선언형 프로그래밍과 데이터 중심의
+설계가 가능해진 iOS 13 이상에서 말이다.
+(벌써부터 SwiftUI 같은 '디테일'을 언급한다고, 눈살을 찌뿌리는 독자들이 있으리라
+믿는다.)
+또한, 본 글에서 다루는 'Clean Architecture'는 위 그림에 나오는 형태의 구성
+자체를 말한다.
+필자는 Uncle Bob (책과 위 디자인 패턴의 저자)이 주장하는 **dependency 규칙들이나
+layer를 나누는 일반적인 방법론**에는 전적으로 동의한다.
+
+## 배경
+
+자세한 내용은 [동명의 책](https://www.amazon.com/dp/0134494164)이나
+[블로그 포스트](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)에
+잘 정리되어 있으니 여기서는 간단히만 설명한다.
+
+Entities는 프로그램의 핵심 대상들을 말하는데, 이 '핵심 대상'이란 UI나 DB 구조
+등의 변화에 바뀌지 않는 가장 고수준의 물건(객체)을 말한다.
+Use cases는 각 앱에 국한된 논리를 포함한다.
+이들은 entities에 영향을 주지는 않지만, 마찬가지로 DB나 UI 등에 영향을 받지 않는
+계층이다.
+
+여기까지는 앱에서도 적용할 수 있는 내용이다.
+Use cases는 앱에서 있는 다양한 동선--화면들의 흐름--을 나타낸다고 보거나, 각
+화면을 use case로 볼 수도 있겠다.
+다만 녹색과 파란색 계층의 구성이 필자가 iOS 앱에서 어울리지 않다고 생각하는
+부분이다.
+
+Controller는 UI 등에서 입력을 받아 use case의 interactor에 전달해주는 역할을
+한다.
+Presenter은 반대로 use case의 interactor로부터 UI에 전달해주는 역할을 한다.
+사실, 대부분 iOS 앱들은 코드의 70% 이상이 이 controller-interactor-presenter
+계층에 할애한다고 생각한다.
+70%가 아니라 *90%*가 되어도 이상할 것이 없을 것이, 간단한 앱들은 대부분 API를
+활용해 가공하는 것이 전부이기 때문이다.
+
+아무튼 설명을 계속하자면, gateway는 DB, Web API 등에서 정보를 취합하는 창구
+역할을 한다.
+이 부분이 필요하다는 것에는 필자도 이견이 없다.
+그렇지 않으면 (마음 한 구석이 찔리긴 하지만) 다른 계층에 DB 접근이나 네트워크
+통신 코드가 들어가는데, 영 좋지 않다.
+
+마지막으로 DB, devices, Web, UI, external interfaces는 별도의 설명이 필요
+없다고 생각한다.
+다시 iOS의 세계로 돌아와서, UI가 Devices와 Web, DB와 같은 계층이 있다는 점에서
+다시 한 번 생각해보자.
+과연 그런가?
+UIKit의 `UIView`라면 납득이 가지만, SwiftUI의 `some View`라면?
+또한, 이제 presenter라던지 controller와 같은 계층이 꼭 필요한가?
+SwiftUI와 Combine의 등장에도 저 구조는 여전히 유효한가?
+
+혹자는 Clean Architecture 책에 나와 있는 것처럼 프레임워크에 종속되면 안된다고
+말할 수도 있다.
+UIKit을 쓰던 SwiftUI를 쓰던 논리적으로 UI의 위계는 최하단 계층에 **있어야
+된다**고 주장할 수도 있다.
+그런데, 우리는 이미 Apple이 만든 기기에서 돌아가는, Apple이 만든 언어로,
+Apple이 만든 도구로, Apple이 만든 프레임워크를 사용해 Apple 제품을 쓰는
+사용자를 위해 앱을 만든다.
+
+이렇게 쓰고 보니 조금 무섭기는 하지만, 그게 앱 개발의 현실이다.
+우리는 화면에 데이터를 표시하기 위해 Apple이 만든 함수를 사용하고, 앱의
+시작점도 Apple이 정해준 `AppDelegate`에서 시작한다.
+[Apple이 새로운 제품을 지원하기 위해 앱의 시작점을 변형한다면](https://developer.apple.com/videos/play/wwdc2019/212/)
+우리는 별 수 없이 앱을 변형해야 한다.
+이런 상황에서 우리가 할 수 있고, 해야 하는 최선은 **주어진 프레임워크에서
+효율적인 앱을 설계하는** 나름의 방식을 찾는 것이다.
+이것을 아키텍쳐라고 부르지는 않겠고, 디자인 패턴이라고 하겠다.
+(Clean Architecture 책 앞부분에서 디자인 패턴과 아키텍쳐는 명확한 경계가 없다고
+말했지만...)
+
+아무튼, 지금까지 필자의 주장을 요약하자면 *iOS에 Clean Architecture를
+곧이곧대로 적용하면 안된다*는 것이다.
+iOS 개발을 할 때, 혹은 다른 특수한 목적으로 개발을 할 때에는 상황에 맞춰서
+경계를 합치거나 변형을 해야 한다.
+그것이 우리에게 주어진 프레임워크에게 종속되는 일이더라도 말이다 (적어도
+Apple이 직접 만든 것들에 대해서는).
+
+그런데, 여기로 내용이 끝난다면 이 글은 결국 필자의 '주장' 그 이상도 이하도 아닐
+것이다.
+프로그래밍은 이념 싸움이 아니다.
+아래에 새로 도입된 SwiftUI와 Combine을 활용하여 위의 Clean Architecture 패턴을
+충실히 구현한 결과를 서술한다.
+
+# Clean Architecture의 구현
+
+실제 구현은 이와 같은 순서로 진행하지 않았지만, 이해를 위해 `Presenter`,
+`Controller`, `Interactor`의 protocol을 먼저 나열한다:
+
+```swift
+protocol Presenter : ObservableObject {
+    associatedtype ViewModel
+    var viewModel: ViewModel { get }
+}
+
+protocol Controller {
+    associatedtype InputPort
+    associatedtype Action
+    var inputPort: InputPort { get }
+    var actionHandler: PassthroughSubject<Action, Never> { get }
+}
+
+protocol Interactor {
+    associatedtype OutputPort
+    var outputPort: OutputPort { get }
+}
+```
+
+`Interactor`는 결과적으로 `Controller`의 `InputPort`가 되고, `Presenter`를
+`OutputPort`로 가질 것이다.
+또한 `Controller`는 view로부터 action을 전달 받을 것인데, 매개체는
+`Controller`의 `actionHandler`가 될 것이다.
+`Presenter`는 view에게 `ViewModel`을 제공할 것인데, 그 구체적인 방식은 view가
+`Presenter`를 `ObservedObject`로 가지고 이벤트를 받는 것이다.
+
+나아가서 `Interactor`는 그림에 나와 있듯이 이들과 직접 소통하지 않고
+`InputPort`와 `OutputPort`라는 추상 계층을 사이로 소통한다.
+이는 use case 계층의 `Interactor`를 나머지 둘과 분리하기 위함이다.
+Associated type `InputPort`와 `OutputPort`는 다음과 같이 `MyInputPort`와
+`MyOutputPort`로 정의되어 있다:
+
+```swift
+protocol MyInputPort {
+    func execute(request: MyRequest)
+}
+
+protocol MyOutputPort {
+    func show(_ response: MyResponse)
+}
+```
+
+보면 `MyInputPort`와 `MyOutputPort`는 각각 `MyRequest`와 `MyResponse`라는
+정해진 메시지를 통해 데이터를 주고 받는다.
+`MyRequest`와 `MyResponse`는 각각 `enum`과 `struct`로 하나는
+`Controller`가 `InputPort`, 즉 `Interactor`에게 보낼 요청을 나열한 것과 다른
+하나는 `Interactor`가 `OutputPort`, 즉 `Presenter`에게 넘겨주는 데이터이다.
+`MyRequest`의 경우에는 요청을 나열한 것이기 때문에 각 요청에 대해 associated
+value가 있는 경우가 많을 것이다.
+
+실제 `Interactor`의 구현인 `MyInteractor`는 다음과 같은 모습을 가진다:
+
+```swift
+final class MyInteractor : Interactor, MyInputPort {
+    let gateway: MyGateway
+    let outputPort: MyOutputPort
+
+    func execute(request: MyRequest) {
+        switch request {
+        case .create(let foo):
+            gateway.create(foo)
+        }
+        outputPort.show(MyResponse(gateway.readDate()))
+    }
+
+    init(outputPort: MyOutputPort, gateway: MyGateway) {
+        self.outputPort = outputPort
+        self.gateway = gateway
+    }
+}
+```
+
+`MyGateway`는 실제 DB 혹은 API를 감싸는 protocol으로, interactor와의 dependency
+inversion을 위함이다.
+이 부분은 use case의 핵심 논리를 담고 있기 때문에 위의 예시보다 복잡할 것이다.
+
+지금까지가 use case에 해당하는 interactor 단의 구조이다.
+벌써부터 불필요한 boilerplate 코드가 산더미다.
+Apple이 WWDC 2019에서 강조한, "우리 앱의 특색 있는 기능" 구현은 언제부터 할 수
+있을까?
+
+이제 `Controller`의 구현인 `MyController`를 보자.
+기본적인 구조는 다음과 같다:
+
+```swift
+final class MyController : Controller {
+    let inputPort: MyInputPort
+    let actionHandler = PassthroughSubject<MyAction, Never>()
+
+    private var cancellable: Cancellable?
+
+    private func awesomeMethod() {}
+
+    init(inputPort: MyInputPort) {
+        self.inputPort = inputPort
+        self.cancellable = actionHandler.sink { [weak self] action in
+            guard let self = self else { return }
+            switch action {
+            case .awesome:
+                self.awesomeMethod()
+            }
+        }
+    }
+}
+```
+
+다른 구현과 마찬가지로 `MyController`는 단순히 구현의 예시를 위한 stub
+클래스이다.
+
+Presenter는 SwiftUI를 사용할 때 특히 역할이 없는 부분이다.
+다음과 같은 단순한 형태이다:
+
+```swift
+final class MyPresenter : Presenter, MyOutputPort {
+    @Published var viewModel = MyViewModel()
+
+    func show(_ response: MyResponse) {
+        viewModel = MyViewModel(response.convertToData())
+    }
+}
+```
+
+`Presenter`는 view가 사용하기 쉬운 형태로 response를 가공하여 넘겨주는 역할을
+하지만, SwiftUI는 view가 상태의 함수로서 `viewModel`의 변화를 감지하여 자동으로
+처리하기 때문에 그 필요성이 사라졌다.
+
+마지막으로 이 모두를 취합하는 view인 `MyView`의 구조는 아래와 같다:
+
+```swift
+struct MyView : View {
+    let controller: MyController
+    @ObservedObject var presenter: MyPresenter
+
+    var body: some View {
+        EmptyView()
+    }
+}
+```
+
+지금까지의 객체들은 factory를 통해 한 곳에서 생성해줄 수 있다:
+
+```swift
+struct MyViewFactory {
+    let gateway: MyGateway
+
+    func createView() -> MyView {
+        let presenter = MyPresenter()
+        let interactor = MyInteractor(outputPort: presenter, gateway: gateway)
+        let controller = MyController(inputPort: interactor)
+        let view = MyView(controller: controller, presenter: presenter)
+        return view
+    }
+}
+```
+
+또한 여기서 제시한 구조는 메모리 cycle이 생기지 않도록 객체들의 소유권을 분배한
+것으로, 각 class의 `deinit`에 메시지를 넣어 제대로 release되는지 확인해볼 수
+있다.
+Xcode의 디버그 메모리 그래프를 통해 각 객체의 관계를 확인하면, `MyController`와
+`MyInteractor`는
+![Interactor Graph](/images/2020-04-10/interactor-graph.png)
+와 같고, `MyPresenter`는
+![Presenter Graph](/images/2020-04-10/presenter-graph.png)
+와 같다.
+모두 일차적으로 SwiftUI view인 `MyView`에 의해 retain되어 있다.
+
+지금까지의 코드는 모두 핵심 논리 없이 Clean Architecture의 boilerplate만을
+구현해본 것이다.
+Code generator 도구를 사용하면 boilerplate 코드 작성에 대한 부담이 줄어들 수도
+있겠지만, 이는 근본적인 해결책이 아니다.
+위에 구현한 것과 같이 Clean Architecture를 곧이곧대로 구현한 것은 아니지만,
+[VIPER](https://www.objc.io/issues/13-architecture/viper/)과 같은 Clean
+Architecture의 변형도 '너무 복잡하다'는 비판을 피해가지는 못한다.
+
+## 대안?
+
+그러나 Clean Architecture에서 배울 점은 분명히 있다.
+동명의 책에서 강조하는 바처럼, 역할에 맞게 계층을 나누는 방법론을 적용하여
+SwiftUI와 Combine을 활용한 모던 iOS 앱에 적합한 패턴을 구성할 수 있다.
+
+필자는 위의 구조에서 필요 없는 부분인 presenter 계층을 제거한 채 view model에
+대응되는 state를 사용하고, controller 계층을 제거하고 View가 직접 interactor에
+action을 전달하는 방식을 채택하였다.
+이러한 구성으로는 데이터가 단방향으로 흐른다 (unidirectional data flow).
+View가 interactor에게 action을 보내면 interactor는 state를 업데이트하고,
+state의 변화를 view가 감지하여 자동으로 rendering을 하는 방식이다.
+이는 redux의 구성과 유사한데, 필자가 이 구조로 macOS를 위한 간단한 video
+converter 앱을 만든 내용을 다음 포스팅에 소개하겠다.

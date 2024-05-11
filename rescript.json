@@ -1,0 +1,23 @@
+{
+  "name": "zetablog",
+  "version": "0.1.0",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "esmodule",
+      "in-source": true
+    }
+  ],
+  "suffix": ".bs.js",
+  "jsx": {
+    "version": 4,
+    "mode": "automatic"
+  },
+  "bs-dependencies": ["@rescript/core", "@rescript/react", "rescript-nodejs"],
+  "bsc-flags": ["-open RescriptCore"]
+}

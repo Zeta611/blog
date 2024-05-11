@@ -1,0 +1,187 @@
+---
+layout: article
+title: "브라키스토크론 문제: 최단시간강하곡선 사이클로이드와 오일러-라그랑주 방정식"
+key: 2017-07-07
+excerpt: "브라키스토크론(brachistochrone), 혹은 최단시간강하곡선을 오일러-라그랑주 방정식을 통해 유도하여, 이것이 사이클로이드와 일치함을 보인다."
+tags: [미분방정식, 해석학, 역학, 수학, 물리학]
+comments: true
+redirect_from: /brachistochrone-euler-lagrange-equation/
+---
+
+# 목차
+
+# 개요
+
+브라키스토크론(brachistochrone), 혹은 최단시간강하곡선 문제는 역사적으로 의미가 깊은 문제이다.
+최단시간강하곡선은 어떤 물체가 한 점에서 다른 한 점까지 마찰 없이 미끄러져 내려갈 때 걸리는 시간을 가장 짧게 만드는 경로로, 놀랍게도 사이클로이드 곡선이 바로 최단시간강하곡선이다.
+이 포스트에서는 다루지 않지만, 이 곡선 상에서는 어느 지점에 물체를 올려놓든지와 무관하게, 가장 낮은 지점까지 내려가는데 걸리는 시간이 모두 같다는 흥미로운 성질도 가지고 있다.
+이 성질에 주목학 최단시간강하곡선, 혹은 사이클로이드 곡선의 다른 이름은 등시강하곡선(tautochrone)이다.
+
+이 문제의 기원은 300여년을 거슬러 올라가 뉴턴, 베르누이, 로피탈 등의 수학자들의 시대에 있다.
+사실 이 문제를 처음 생각해낸 것은 갈릴레오였을 것으로 생각되는데, 그는 1938년에 해당 문제에 대한 답이 원 호라고 결론을 지었다.
+물론 이는 잘못된 답이다.
+1969년, 요한 베르누이는 *Acta Eruditorum*에 최단시간강하곡선 문제를 내어 다른 수학자들이 도전하게 하였다.
+그리하여 라이프니츠는 요한 베르누이에게 외국에 있는 수학자들도 이 문제를 풀 수 있도록 6개월보다 더 많은 시간을 달라고 요청하였다.
+결국 다섯 명의 수학자로부터 다섯 개의 풀이가 나왔는데, 문제를 해결한 사람들은 뉴턴, 야콥 베르누이, 라이프니츠, 로피탈, 그리고 출제자 본인인 요한 베르누이였다.
+
+이번 포스트에서는 이들이 풀어낸 방법과는 다르게 최단시간강하곡선 문제에 대한 답을 내고자 한다.
+이를 위해서 오일러-라그랑주 방정식을 통해 미분방정식을 구한 후,—사이클로이드에 해당하는—곡선의 방정식을 유도할 것이다.
+
+# 식 세우기
+
+![Figure 1](/images/2017-07-07-2/fig1.png)
+
+연직 아래 방향, 즉 중력 방향으로 $$x$$-축을 설정한다.
+곡선의 선소를 $$\mathrm{d} s$$라고 하면, 피타고라스의 정리에 의해 다음이 성립한다:
+
+$$
+\mathrm{d} s = \sqrt{1 + \left( \frac{\mathrm{d} y}{\mathrm{d} x} \right)^2} \mathrm{d} x = \sqrt{1 + (y')^2} \mathrm{d} x
+$$
+
+이 때, 미끄러져 내려오는 물체의 질량을 $$m$$, 속력을 $$v$$, 중력가속도를 $$g$$라고 두자.
+그렇다면
+
+$$
+v = \frac{\mathrm d s}{\mathrm d t}
+$$
+
+이고, 역학적 에너지 보존 법칙에 의해
+
+$$
+\frac 12 m v^2 = mgx
+$$
+
+임을 알 수 있다.
+이를 $$v$$에 대해 정리하면
+
+$$
+v = \frac{\mathrm d s}{\mathrm d t} = \sqrt{2gx}
+$$
+
+이 된다.
+따라서,
+
+$$
+\mathrm d t = \frac{\mathrm d s}{\sqrt{2gx}}
+$$
+
+이다.
+이제 곡선을 따라 $$\mathrm A$$에서 $$\mathrm B$$까지 내려오는데 걸리는 시간을 $$T = \int_\mathrm{A}^\mathrm{B} \mathrm d t$$라고 하자.
+위 $$\mathrm d t$$를 대입하면,
+
+$$
+T = \int_0^{x_1} \sqrt{\frac{1 + (y')^2}{2gx}} \mathrm d x\\
+\qquad = \frac{1}{2g} \int_0^{x_1} \sqrt{\frac{1 + (y')^2}{x}} \mathrm d x
+$$
+
+이 된다.
+
+# 오일러-라그랑주 방정식의 적용
+
+다음과 같이 함수 $$f$$를 정의하자:
+
+$$
+f(x, y, y') = \sqrt{\frac{1 + (y')^2}{x}}
+$$
+
+오일러-라그랑주 방정식은 다음과 같다:
+
+$$
+\frac{\partial f}{\partial y} - \frac{\mathrm d}{\mathrm d x} \left(\frac{\partial f}{\partial y'}\right) = 0
+$$
+
+일단 $$\frac{\partial f}{\partial y}$$ 항은,
+
+$$
+\frac{\partial f}{\partial y} = \frac{\partial}{\partial y} \left(\sqrt{\frac{1 + (y')^2}{x}}\right) = 0
+$$
+
+이고, $$\frac{\partial f}{\partial y'}$$ 항은,
+
+$$
+\frac{\partial f}{\partial y'} = \frac 12 \sqrt{\frac{x}{1 + (y')^2}} \cdot \frac{x \cdot 2y' - 0}{x^2} = \frac{y'}{\sqrt{x \left( 1 + (y')^2 \right)}}
+$$
+
+이다.
+따라서, 오일러-라그랑주 방정식은 다음과 같다:
+
+$$
+\frac{\partial f}{\partial y} - \frac{\mathrm d}{\mathrm d x} \left(\frac{\partial f}{\partial y'}\right) = - \frac{\mathrm d}{\mathrm d x} \left(\frac{y'}{\sqrt{x \left( 1 + (y')^2 \right)}}\right) = 0
+$$
+
+# 미분방정식 풀이
+
+$$
+\frac{\mathrm d}{\mathrm d x} \left(\frac{y'}{\sqrt{x \left( 1 + (y')^2 \right)}}\right) = 0
+$$
+
+이므로, $$C$$가 상수일 때
+
+$$
+\frac{y'}{\sqrt{x \left( 1 + (y')^2 \right)}} = C
+$$
+
+이다.
+양변을 제곱하여 좌변의 분모를 우변으로 이항시키면,
+
+$$
+(y')^2 = C^2 x \left(1 + (y')^2 \right) = C^2 x + C^2 x (y')^2
+$$
+
+이 되고, $$y'$$에 대해 정리하면,
+
+$$
+y' = \pm \sqrt{\frac{C^2 x}{1 - C^2 x}}
+$$
+
+이다.
+$$\frac{1}{C^2} = a$$로 치환하자.
+그러면
+
+$$
+y' = \pm \sqrt{\frac{x}{a - x}}
+$$
+
+가 되어
+
+$$
+\mathrm d y = \pm \sqrt{\frac{x}{a - x}} \mathrm d x
+$$
+
+이다.
+$$x = a \sin^2 \frac \theta 2 = \frac a 2 (1 - \cos \theta)$$로 변수 치환을 하자.
+
+$$
+\mathrm d x = a \sin \frac \theta 2 \cos \frac \theta 2 \mathrm d \theta
+$$
+
+이므로,
+
+$$
+\begin{align*}
+\mathrm d y &= \pm \sqrt{\frac{a \sin^2 \frac \theta 2}{a - a \sin^2 \frac \theta 2}} \cdot a \sin \frac \theta 2 \cos \frac \theta 2 \mathrm d \theta\\
+&= \pm \sqrt{\frac{\sin^2 \frac \theta 2}{\cos^2 \frac \theta 2}} \cdot a \sin \frac \theta 2 \cos \frac \theta 2 \mathrm d \theta\\
+&= \pm a \sin^2 \frac \theta 2 \mathrm d \theta\\
+&= \pm \frac a 2 (1 - \cos \theta) \mathrm d \theta
+\end{align*}
+$$
+
+이다.
+양변을 적분하면,
+
+$$
+y = \pm \frac a 2 (\theta - \sin \theta) + D
+$$
+
+이 되는데 ($$D$$는 적분 상수), $$x = 0$$, 즉 $$\theta = 0$$일 때 $$y = 0$$이므로 $$D = 0$$이다.
+그리고 제 1사분면에 점 $$\mathrm B$$가 있기 때문에 부호는 $$+$$를 고른다.
+결국
+
+$$
+\begin{cases}
+x = \frac a 2 (1 - \cos \theta)\\
+y = \frac a 2 (\theta - \sin \theta)
+\end{cases}
+$$
+
+으로, 사이클로이드 곡선의 방정식이 나왔음을 알 수 있다.
