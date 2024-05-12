@@ -1,7 +1,7 @@
 open NodeJs
 
 let process = Process.process
-let postsDirectory = Path.join([process->Process.cwd, "public", "posts"])
+let postsDirectory = Path.join([process->Process.cwd, "posts"])
 
 let getAllPostFileNames = () => {
   let allFiles = Fs.readdirSync(postsDirectory)

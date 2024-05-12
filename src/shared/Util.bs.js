@@ -12,7 +12,7 @@ import * as Rsc from "next-mdx-remote/rsc";
 
 var $$process = Process;
 
-var postsDirectory = Nodepath.join($$process.cwd(), "public", "posts");
+var postsDirectory = Nodepath.join($$process.cwd(), "posts");
 
 function getAllPostFileNames() {
   var allFiles = Nodefs.readdirSync(postsDirectory);
