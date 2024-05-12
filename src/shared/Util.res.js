@@ -47,10 +47,7 @@ async function getContentAndFrontmatter(fileName) {
                     [
                       RehypePrettyCode,
                       {
-                        theme: {
-                          dark: "solarized-dark",
-                          light: "solarized-light"
-                        }
+                        theme: "solarized-light"
                       }
                     ],
                     [

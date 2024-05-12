@@ -27,16 +27,8 @@ let getContentAndFrontmatter = async fileName => {
           [remarkToc, {"heading": "목차"}->Obj.magic]->Obj.magic,
         ],
         "rehypePlugins": [
-          [
-            rehypePrettyCode,
-            {
-              "theme": {
-                "dark": "solarized-dark",
-                "light": "solarized-light",
-              },
-            }->Obj.magic,
-          ],
-          [rehypeKaTeX, Obj.magic({"throwOnError": true, "strict": true})],
+          [rehypePrettyCode, {"theme": "solarized-light"}->Obj.magic],
+          [rehypeKaTeX, {"throwOnError": true, "strict": true}->Obj.magic],
         ],
         "format": "mdx",
       },
