@@ -8,8 +8,8 @@ const notoSerifKR = Noto_Serif_KR({
 });
 
 export const metadata: Metadata = {
-  title: "프로그래밍의 도를 향하여",
-  description: "프로그래밍의 도를 아십니까?",
+  title: "프로그래밍의 도를 찾아서",
+  description: "프로그래밍이 뭘까?",
 };
 
 export default function RootLayout({

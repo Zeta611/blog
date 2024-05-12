@@ -18,7 +18,7 @@ async function make(param) {
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx("h1", {
-                      children: "프로그래밍의 도를 향하여",
+                      children: "프로그래밍의 도를 찾아서",
                       className: "text-2xl lg:text-3xl font-bold text-slate-800"
                     }),
                 JsxRuntime.jsx("div", {

@@ -13,7 +13,7 @@ let make = async () => {
 
   <div className="flex flex-col gap-9 px-6 py-12 max-w-xl mx-auto md:max-w-2xl">
     <h1 className="text-2xl lg:text-3xl font-bold text-slate-800">
-      {"프로그래밍의 도를 향하여"->React.string}
+      {"프로그래밍의 도를 찾아서"->React.string}
     </h1>
     <div className="flex flex-col gap-7">
       {data
