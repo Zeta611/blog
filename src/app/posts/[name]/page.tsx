@@ -1,4 +1,4 @@
-import { getAllPostFileNames } from "@/shared/Util.bs";
+import { getAllPostFileNames } from "@/shared/Util.res.js";
 
 // Ignore unknown files
 // Comment out the following line: https://github.com/vercel/next.js/issues/56253
@@ -11,4 +11,4 @@ export function generateStaticParams() {
   }));
 }
 
-export { default } from "@/shared/Post.bs";
+export { default } from "@/shared/Post.res.js";

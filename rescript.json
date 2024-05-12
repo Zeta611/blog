@@ -13,11 +13,16 @@
       "in-source": true
     }
   ],
-  "suffix": ".bs.js",
+  "suffix": ".res.js",
   "jsx": {
     "version": 4,
     "mode": "automatic"
   },
   "bs-dependencies": ["@rescript/core", "@rescript/react", "rescript-nodejs"],
-  "bsc-flags": ["-open RescriptCore"]
+  "bsc-flags": ["-open RescriptCore"],
+  "gentypeconfig": {
+    "module": "esmodule",
+    "moduleResolution": "bundler",
+    "generatedFileExtension": ".gen.tsx"
+  }
 }

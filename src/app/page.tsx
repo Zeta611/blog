@@ -1,1 +1,1 @@
-export { default } from "@/shared/Home.bs"
+export { default } from "@/shared/Home.res.js";
