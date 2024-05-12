@@ -1,3 +1,4 @@
+@react.component
 let make = async () => {
   let posts = Util.getAllPostFileNames()
 
@@ -39,5 +40,3 @@ let make = async () => {
     </div>
   </div>
 }
-
-let default = make

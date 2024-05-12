@@ -19,10 +19,5 @@
     "mode": "automatic"
   },
   "bs-dependencies": ["@rescript/core", "@rescript/react", "rescript-nodejs"],
-  "bsc-flags": ["-open RescriptCore"],
-  "gentypeconfig": {
-    "module": "esmodule",
-    "moduleResolution": "bundler",
-    "generatedFileExtension": ".gen.tsx"
-  }
+  "bsc-flags": ["-open RescriptCore"]
 }
