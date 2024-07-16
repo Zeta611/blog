@@ -7,7 +7,7 @@ tags: [swift, c, python, pypy, 코딩, 알고리즘]
 comments: true
 ---
 
-![Figure 1](/images/2018-08-29-1/programming languages.jpeg)
+![Figure 1](</images/2018-08-29-1/programming languages.jpeg>)
 
 # 목차
 
@@ -39,29 +39,29 @@ C 언어는 비교적 기계어에 근접한 로우 레벨 언어임으로 실�
 
 void sieve_eratosthenes(unsigned int n)
 {
-	int *sieve = calloc(n, sizeof(unsigned int));
-	sieve[0] = 1;
-	for (int p = 2; p <= n; ++p) {
-		if (sieve[p - 1] == 0) {
-			/* printf("%d\n", p); */
-			for (int i = p * p; i <= n; i += p)
-				sieve[i - 1] = 1;
-		}
-	}
+ int *sieve = calloc(n, sizeof(unsigned int));
+ sieve[0] = 1;
+ for (int p = 2; p <= n; ++p) {
+  if (sieve[p - 1] == 0) {
+   /* printf("%d\n", p); */
+   for (int i = p * p; i <= n; i += p)
+    sieve[i - 1] = 1;
+  }
+ }
 }
 
 int main(void)
 {
-	unsigned int n = 100000000;
-	double average = 0.0;
-	for (int i = 0; i < 100; i++) {
-		clock_t start = clock();
-		sieve_eratosthenes(n);
-		clock_t end = clock();
-		average += (double) (end - start) / CLOCKS_PER_SEC;
-	}
-	printf("%f\n", average / 100.);
-	return 0;
+ unsigned int n = 100000000;
+ double average = 0.0;
+ for (int i = 0; i < 100; i++) {
+  clock_t start = clock();
+  sieve_eratosthenes(n);
+  clock_t end = clock();
+  average += (double) (end - start) / CLOCKS_PER_SEC;
+ }
+ printf("%f\n", average / 100.);
+ return 0;
 }
 ```
 
