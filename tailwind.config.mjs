@@ -16,10 +16,10 @@ const tailwindConfig = {
         DEFAULT: {
           css: {
             "code::before": {
-              content: '"',
+              content: '""',
             },
             "code::after": {
-              content: '"',
+              content: '""',
             },
           },
         },
