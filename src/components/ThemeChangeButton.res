@@ -9,10 +9,10 @@ external useTheme: unit => t = "useTheme"
 let make = () => {
   let (mounted, setMounted) = React.useState(() => false)
   let {theme, setTheme} = useTheme()
-  React.useEffect0(() => {
+  React.useEffect(() => {
     setMounted(_ => true)
     None
-  })
+  }, [])
 
   if !mounted {
     React.null
