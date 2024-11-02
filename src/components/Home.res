@@ -12,7 +12,8 @@ let make = async () => {
     ->Array.toSorted(((_, {key: a}), (_, {key: b})) => String.compare(b, a))
 
   <div className="flex flex-col gap-9 px-6 py-12 max-w-xl mx-auto md:max-w-2xl">
-    <h1 className="text-2xl lg:text-3xl font-bold text-slate-800">
+    <ThemeChangeButton />
+    <h1 className="text-2xl lg:text-3xl font-bold">
       {"프로그래밍의 도를 찾아서"->React.string}
     </h1>
     <div className="flex flex-col gap-7">

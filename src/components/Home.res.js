@@ -2,6 +2,7 @@
 
 import * as Caml from "rescript/lib/es6/caml.js";
 import * as Util from "../shared/Util.res.js";
+import * as ThemeChangeButton from "./ThemeChangeButton.res.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
 async function make(param) {
@@ -17,9 +18,10 @@ async function make(param) {
       });
   return JsxRuntime.jsxs("div", {
               children: [
+                JsxRuntime.jsx(ThemeChangeButton.make, {}),
                 JsxRuntime.jsx("h1", {
                       children: "프로그래밍의 도를 찾아서",
-                      className: "text-2xl lg:text-3xl font-bold text-slate-800"
+                      className: "text-2xl lg:text-3xl font-bold"
                     }),
                 JsxRuntime.jsx("div", {
                       children: data.map(function (param) {
