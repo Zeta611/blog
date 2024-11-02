@@ -1,6 +1,6 @@
 type t = {
   title: string,
-  key: Date.t,
+  key: string,
   tags: array<string>,
   excerpt: string,
 }

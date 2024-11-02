@@ -6,8 +6,9 @@ let generateStaticParams = () => {
 type params = {name: string}
 
 @react.component
-let make = async (~params) => {
-  let {content, frontmatter} = await Util.getContentAndFrontmatter(params.name)
+let make = async (~params: promise<params>) => {
+  let {name} = await params
+  let {content, frontmatter} = await Util.getContentAndFrontmatter(name)
   <div className="flex flex-col gap-9 px-6 py-12 max-w-xl mx-auto md:max-w-4xl">
     <div className="text-2xl lg:text-3xl font-bold text-slate-800">
       {"프로그래밍의 도를 찾아서"->React.string}

@@ -12,7 +12,8 @@ function generateStaticParams() {
 }
 
 async function make(param) {
-  var match = await Util.getContentAndFrontmatter(param.params.name);
+  var match = await param.params;
+  var match$1 = await Util.getContentAndFrontmatter(match.name);
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx("div", {
@@ -22,11 +23,11 @@ async function make(param) {
                 JsxRuntime.jsxs("div", {
                       children: [
                         JsxRuntime.jsx("h1", {
-                              children: match.frontmatter.title,
+                              children: match$1.frontmatter.title,
                               className: "text-2xl font-bold text-slate-800"
                             }),
                         JsxRuntime.jsx("article", {
-                              children: match.content,
+                              children: match$1.content,
                               className: "prose dark:prose-invert text-justify max-w-xl mx-auto md:max-w-4xl"
                             })
                       ],

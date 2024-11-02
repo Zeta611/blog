@@ -9,7 +9,7 @@ let make = async () => {
       (fileName, frontmatter)
     })
     ->Promise.all)
-    ->Array.toSorted(((_, {key: a}), (_, {key: b})) => Date.compare(b, a))
+    ->Array.toSorted(((_, {key: a}), (_, {key: b})) => String.compare(b, a))
 
   <div className="flex flex-col gap-9 px-6 py-12 max-w-xl mx-auto md:max-w-2xl">
     <h1 className="text-2xl lg:text-3xl font-bold text-slate-800">
@@ -22,9 +22,13 @@ let make = async () => {
           // Gap between date and tags
           <div className="flex gap-3 text-xs">
             <div className="text-slate-600">
-              {frontmatter.key
-              ->Date.toLocaleDateStringWithLocale("ko-KR")
-              ->React.string}
+              {
+                open Date
+                frontmatter.key
+                ->fromString
+                ->toLocaleDateStringWithLocale("ko-KR")
+                ->React.string
+              }
             </div>
             <div className="text-slate-700">
               {frontmatter.tags->Array.join(", ")->React.string}
