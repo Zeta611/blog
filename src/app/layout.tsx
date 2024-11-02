@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Noto_Serif_KR } from "next/font/google";
+import { Noto_Serif_KR, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const notoSerifKR = Noto_Serif_KR({
   weight: ["600", "400"],
   preload: false,
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  preload: false,
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
@@ -19,7 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={notoSerifKR.className}>{children}</body>
+      <body className={`${notoSerifKR.className} ${jetbrainsMono.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

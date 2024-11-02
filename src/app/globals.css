@@ -4,6 +4,11 @@
 
 @import "./katex.css";
 
+code,
+pre {
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+
 /* Rehype Pretty Code settings */
 @media (prefers-color-scheme: dark) {
   pre[data-theme="light"],
