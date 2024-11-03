@@ -1,8 +1,8 @@
+@import "./katex.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "./katex.css";
 
 code,
 pre {

@@ -7,7 +7,7 @@
     "res:build": "rescript",
     "res:dev": "rescript build -w",
     "res:clean": "rescript clean",
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "bunx serve@latest out",
     "lint": "next lint"
