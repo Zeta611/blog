@@ -11,37 +11,29 @@ let make = async () => {
     ->Promise.all)
     ->Array.toSorted(((_, {key: a}), (_, {key: b})) => String.compare(b, a))
 
-  <div className="flex flex-col gap-9 px-6 py-12 max-w-xl mx-auto md:max-w-2xl">
-    <ThemeChangeButton />
-    <h1 className="text-2xl lg:text-3xl font-bold">
-      {"프로그래밍의 도를 찾아서"->React.string}
-    </h1>
-    <div className="flex flex-col gap-7">
-      {data
-      ->Array.map(((fileName, frontmatter)) => {
-        <div key={frontmatter.title} className="flex flex-col gap-1.5">
-          // Gap between date and tags
-          <div className="flex gap-3 text-xs">
-            <div className="text-slate-600">
-              {
-                open Date
-                frontmatter.key
-                ->fromString
-                ->toLocaleDateStringWithLocale("ko-KR")
-                ->React.string
-              }
-            </div>
-            <div className="text-slate-700">
-              {frontmatter.tags->Array.join(", ")->React.string}
-            </div>
+  <div className="flex flex-col gap-7">
+    {data
+    ->Array.map(((fileName, frontmatter)) => {
+      <div key={frontmatter.title} className="flex flex-col gap-1.5">
+        // Gap between date and tags
+        <div className="flex gap-3 text-xs">
+          <div>
+            {
+              open Date
+              frontmatter.key
+              ->fromString
+              ->toLocaleDateStringWithLocale("ko-KR")
+              ->React.string
+            }
           </div>
-          <a href={`./posts/${fileName}`} className="text-lg font-semibold text-slate-700">
-            {frontmatter.title->React.string}
-          </a>
-          <div className="text-sm text-slate-600"> {frontmatter.excerpt->React.string} </div>
+          <div> {frontmatter.tags->Array.join(", ")->React.string} </div>
         </div>
-      })
-      ->React.array}
-    </div>
+        <a href={`./posts/${fileName}`} className="text-lg font-semibold">
+          {frontmatter.title->React.string}
+        </a>
+        <div className="text-sm"> {frontmatter.excerpt->React.string} </div>
+      </div>
+    })
+    ->React.array}
   </div>
 }

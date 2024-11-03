@@ -16,25 +16,16 @@ async function make(param) {
   var match$1 = await Util.getContentAndFrontmatter(match.name);
   return JsxRuntime.jsxs("div", {
               children: [
-                JsxRuntime.jsx("div", {
-                      children: "프로그래밍의 도를 찾아서",
-                      className: "text-2xl lg:text-3xl font-bold text-slate-800"
+                JsxRuntime.jsx("h1", {
+                      children: match$1.frontmatter.title,
+                      className: "text-2xl font-bold"
                     }),
-                JsxRuntime.jsxs("div", {
-                      children: [
-                        JsxRuntime.jsx("h1", {
-                              children: match$1.frontmatter.title,
-                              className: "text-2xl font-bold text-slate-800"
-                            }),
-                        JsxRuntime.jsx("article", {
-                              children: match$1.content,
-                              className: "prose dark:prose-invert text-justify max-w-xl mx-auto md:max-w-4xl"
-                            })
-                      ],
-                      className: "flex flex-col gap-7"
+                JsxRuntime.jsx("article", {
+                      children: match$1.content,
+                      className: "prose dark:prose-invert text-justify max-w-xl mx-auto md:max-w-4xl"
                     })
               ],
-              className: "flex flex-col gap-9 px-6 py-12 max-w-xl mx-auto md:max-w-4xl"
+              className: "flex flex-col gap-7"
             });
 }
 
