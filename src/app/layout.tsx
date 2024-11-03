@@ -28,11 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${notoSerifKR.className} ${jetbrainsMono.variable} flex flex-col gap-7 px-6 py-10 max-w-xl mx-auto md:max-w-2xl`}
+        className={`${notoSerifKR.className} ${jetbrainsMono.variable} flex flex-col`}
       >
         <ThemeProvider attribute="class" disableTransitionOnChange>
           <NavigationBar />
-          {children}
+          <div className="px-6 py-6 max-w-xl mx-auto md:max-w-2xl">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
