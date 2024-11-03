@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { make as NavigationBar } from "@/components/NavigationBar.res.js";
+import { cn } from "@/shared/utils";
 import type { Metadata } from "next";
 import { Noto_Serif_KR, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
@@ -28,7 +29,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${notoSerifKR.className} ${jetbrainsMono.variable} flex flex-col`}
+        className={cn([
+          notoSerifKR.className,
+          jetbrainsMono.variable,
+          "flex",
+          "flex-col",
+        ])}
       >
         <ThemeProvider attribute="class" disableTransitionOnChange>
           <NavigationBar />

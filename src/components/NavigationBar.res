@@ -4,7 +4,10 @@ module ListItem = {
   @react.component
   let make = (~title: string, ~href: string) => {
     <Next.Link href passHref=true legacyBehavior=true>
-      <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bg-transparent`}>
+      <NavigationMenuLink
+        className={Utils.cn(
+          [...navigationMenuTriggerStyle()->String.split(" "), "bg-transparent"],
+        )}>
         {title->React.string}
       </NavigationMenuLink>
     </Next.Link>
