@@ -11,7 +11,7 @@ let make = () => {
   }, [])
 
   if !mounted {
-    React.null
+    <Button variant="ghost" size="icon"> {"🌙"->React.string} </Button>
   } else {
     <Button
       variant="ghost"
@@ -19,14 +19,14 @@ let make = () => {
       onClick={_ => {
         setTheme(
           switch theme {
-          | "light" => "dark"
-          | _ => "light"
+          | Light => Dark
+          | Dark => Light
           },
         )
       }}>
       {switch theme {
-      | "light" => "🌙"
-      | _ => "☀️"
+      | Light => "🌙"
+      | Dark => "☀️"
       }->React.string}
     </Button>
   }

@@ -20,14 +20,20 @@ function ThemeChangeButton(props) {
               });
         }), []);
   if (!match[0]) {
-    return null;
+    return JsxRuntime.jsx(Button.Button, {
+                variant: "ghost",
+                size: "icon",
+                children: "🌙"
+              });
   }
-  var tmp = theme === "light" ? "🌙" : "☀️";
+  var tmp;
+  tmp = theme === "light" ? "🌙" : "☀️";
   return JsxRuntime.jsx(Button.Button, {
               variant: "ghost",
               size: "icon",
               onClick: (function (param) {
-                  var tmp = theme === "light" ? "dark" : "light";
+                  var tmp;
+                  tmp = theme === "light" ? "dark" : "light";
                   setTheme(tmp);
                 }),
               children: tmp

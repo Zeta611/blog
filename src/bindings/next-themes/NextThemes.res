@@ -1,4 +1,8 @@
-type t = {theme: string, setTheme: string => unit}
+type theme =
+  | @as("light") Light
+  | @as("dark") Dark
+
+type t = {theme: theme, setTheme: theme => unit}
 
 @module("next-themes")
 external useTheme: unit => t = "useTheme"
