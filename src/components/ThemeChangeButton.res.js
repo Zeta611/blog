@@ -4,6 +4,7 @@
 import * as React from "react";
 import * as NextThemes from "next-themes";
 import * as JsxRuntime from "react/jsx-runtime";
+import * as ReactIcons from "@radix-ui/react-icons";
 import * as Button from "@/components/ui/button";
 
 function ThemeChangeButton(props) {
@@ -19,25 +20,36 @@ function ThemeChangeButton(props) {
                 return true;
               });
         }), []);
-  if (!match[0]) {
-    return JsxRuntime.jsx(Button.Button, {
+  var sunIcon = JsxRuntime.jsx(ReactIcons.SunIcon, {
+        className: "h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+      });
+  var moonIcon = JsxRuntime.jsx(ReactIcons.MoonIcon, {
+        className: "absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+      });
+  if (match[0]) {
+    return JsxRuntime.jsxs(Button.Button, {
                 variant: "ghost",
                 size: "icon",
-                children: "🌙"
+                onClick: (function (param) {
+                    var tmp;
+                    tmp = theme === "light" ? "dark" : "light";
+                    setTheme(tmp);
+                  }),
+                children: [
+                  sunIcon,
+                  moonIcon
+                ]
+              });
+  } else {
+    return JsxRuntime.jsxs(Button.Button, {
+                variant: "ghost",
+                size: "icon",
+                children: [
+                  sunIcon,
+                  moonIcon
+                ]
               });
   }
-  var tmp;
-  tmp = theme === "light" ? "🌙" : "☀️";
-  return JsxRuntime.jsx(Button.Button, {
-              variant: "ghost",
-              size: "icon",
-              onClick: (function (param) {
-                  var tmp;
-                  tmp = theme === "light" ? "dark" : "light";
-                  setTheme(tmp);
-                }),
-              children: tmp
-            });
 }
 
 var make = ThemeChangeButton;
