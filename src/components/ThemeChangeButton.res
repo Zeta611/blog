@@ -18,7 +18,7 @@ let make = () => {
     React.null
   } else {
     <Button
-      variant="outline"
+      variant="ghost"
       size="icon"
       onClick={_ => {
         setTheme(
@@ -28,12 +28,10 @@ let make = () => {
           },
         )
       }}>
-      <span className="dark:text-slate-200 text-slate-700">
-        {switch theme {
-        | "light" => "🌙"
-        | _ => "☀️"
-        }->React.string}
-      </span>
+      {switch theme {
+      | "light" => "🌙"
+      | _ => "☀️"
+      }->React.string}
     </Button>
   }
 }

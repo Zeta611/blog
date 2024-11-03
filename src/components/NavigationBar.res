@@ -19,17 +19,20 @@ let make = () => {
       <br />
       {"Programming"->React.string}
     </Next.Link>
-    // Menus
-    <NavigationMenu className="flex">
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <ListItem href="/posts" title="Posts" />
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <ListItem href="/about" title="About" />
-        </NavigationMenuItem>
-      </NavigationMenuList>
+    <div className="flex gap-2">
+      // Menus
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <ListItem href="/posts" title="Posts" />
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <ListItem href="/about" title="About" />
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+      // Theme
       <ThemeChangeButton />
-    </NavigationMenu>
+    </div>
   </div>
 }

@@ -33,27 +33,29 @@ function NavigationBar(props) {
                         "Programming"
                       ]
                     }),
-                JsxRuntime.jsxs(NavigationMenu.NavigationMenu, {
-                      className: "flex",
+                JsxRuntime.jsxs("div", {
                       children: [
-                        JsxRuntime.jsxs(NavigationMenu.NavigationMenuList, {
-                              children: [
-                                JsxRuntime.jsx(NavigationMenu.NavigationMenuItem, {
-                                      children: JsxRuntime.jsx(NavigationBar$ListItem, {
-                                            title: "Posts",
-                                            href: "/posts"
+                        JsxRuntime.jsx(NavigationMenu.NavigationMenu, {
+                              children: JsxRuntime.jsxs(NavigationMenu.NavigationMenuList, {
+                                    children: [
+                                      JsxRuntime.jsx(NavigationMenu.NavigationMenuItem, {
+                                            children: JsxRuntime.jsx(NavigationBar$ListItem, {
+                                                  title: "Posts",
+                                                  href: "/posts"
+                                                })
+                                          }),
+                                      JsxRuntime.jsx(NavigationMenu.NavigationMenuItem, {
+                                            children: JsxRuntime.jsx(NavigationBar$ListItem, {
+                                                  title: "About",
+                                                  href: "/about"
+                                                })
                                           })
-                                    }),
-                                JsxRuntime.jsx(NavigationMenu.NavigationMenuItem, {
-                                      children: JsxRuntime.jsx(NavigationBar$ListItem, {
-                                            title: "About",
-                                            href: "/about"
-                                          })
-                                    })
-                              ]
+                                    ]
+                                  })
                             }),
                         JsxRuntime.jsx(ThemeChangeButton.make, {})
-                      ]
+                      ],
+                      className: "flex gap-2"
                     })
               ],
               className: "flex justify-between items-end"

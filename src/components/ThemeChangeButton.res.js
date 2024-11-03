@@ -24,16 +24,13 @@ function ThemeChangeButton(props) {
   }
   var tmp = theme === "light" ? "🌙" : "☀️";
   return JsxRuntime.jsx(Button.Button, {
-              variant: "outline",
+              variant: "ghost",
               size: "icon",
               onClick: (function (param) {
                   var tmp = theme === "light" ? "dark" : "light";
                   setTheme(tmp);
                 }),
-              children: JsxRuntime.jsx("span", {
-                    children: tmp,
-                    className: "dark:text-slate-200 text-slate-700"
-                  })
+              children: tmp
             });
 }
 
