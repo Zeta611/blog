@@ -11,7 +11,7 @@ function NavigationBar$ListItem(props) {
               passHref: true,
               legacyBehavior: true,
               children: JsxRuntime.jsx(NavigationMenu.NavigationMenuLink, {
-                    className: NavigationMenu.navigationMenuTriggerStyle(),
+                    className: NavigationMenu.navigationMenuTriggerStyle() + " bg-transparent",
                     children: props.title
                   })
             });
@@ -26,7 +26,7 @@ function NavigationBar(props) {
               children: JsxRuntime.jsxs("div", {
                     children: [
                       JsxRuntime.jsxs(Link, {
-                            className: "text-lg sm:text-2xl lg:text-3xl px-6 font-bold",
+                            className: "text-lg sm:text-2xl lg:text-3xl font-bold",
                             href: "/",
                             children: [
                               "Seeking\u00A0the\u00A0Tao\u00A0of",
@@ -51,7 +51,7 @@ function NavigationBar(props) {
                             className: "flex gap-2"
                           })
                     ],
-                    className: "flex justify-between items-end max-w-xl mx-auto md:max-w-2xl"
+                    className: "flex justify-between items-end gap-2 px-6 max-w-xl mx-auto md:max-w-2xl"
                   }),
               className: "sticky top-0 border-b border-stone-500 bg-background/80 backdrop-blur-lg py-2 mt-10"
             });

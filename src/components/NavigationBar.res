@@ -4,7 +4,7 @@ module ListItem = {
   @react.component
   let make = (~title: string, ~href: string) => {
     <Next.Link href passHref=true legacyBehavior=true>
-      <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+      <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bg-transparent`}>
         {title->React.string}
       </NavigationMenuLink>
     </Next.Link>
@@ -14,9 +14,9 @@ module ListItem = {
 let make = () => {
   <div
     className="sticky top-0 border-b border-stone-500 bg-background/80 backdrop-blur-lg py-2 mt-10">
-    <div className="flex justify-between items-end max-w-xl mx-auto md:max-w-2xl">
+    <div className="flex justify-between items-end gap-2 px-6 max-w-xl mx-auto md:max-w-2xl">
       // Title
-      <Next.Link href="/" className="text-lg sm:text-2xl lg:text-3xl px-6 font-bold">
+      <Next.Link href="/" className="text-lg sm:text-2xl lg:text-3xl font-bold">
         {"Seeking\u00A0the\u00A0Tao\u00A0of"->React.string}
         <br />
         {"Programming"->React.string}
