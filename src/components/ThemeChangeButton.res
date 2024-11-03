@@ -1,14 +1,10 @@
 @@directive("'use client';")
 
-type t = {theme: string, setTheme: string => unit}
-
-@module("next-themes")
-external useTheme: unit => t = "useTheme"
-
 @react.component
 let make = () => {
   let (mounted, setMounted) = React.useState(() => false)
-  let {theme, setTheme} = useTheme()
+  let {theme, setTheme} = NextThemes.useTheme()
+
   React.useEffect(() => {
     setMounted(_ => true)
     None

@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import NavigationBar from "@/components/navigation-bar";
+import { make as NavigationBar } from "@/components/NavigationBar.res.js";
 import type { Metadata } from "next";
 import { Noto_Serif_KR, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
