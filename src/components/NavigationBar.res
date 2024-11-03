@@ -26,9 +26,6 @@ let make = () => {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <ListItem href="/posts" title="Posts" />
-            </NavigationMenuItem>
-            <NavigationMenuItem>
               <ListItem href="/about" title="About" />
             </NavigationMenuItem>
           </NavigationMenuList>

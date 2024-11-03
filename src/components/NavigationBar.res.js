@@ -37,21 +37,13 @@ function NavigationBar(props) {
                       JsxRuntime.jsxs("div", {
                             children: [
                               JsxRuntime.jsx(NavigationMenu.NavigationMenu, {
-                                    children: JsxRuntime.jsxs(NavigationMenu.NavigationMenuList, {
-                                          children: [
-                                            JsxRuntime.jsx(NavigationMenu.NavigationMenuItem, {
-                                                  children: JsxRuntime.jsx(NavigationBar$ListItem, {
-                                                        title: "Posts",
-                                                        href: "/posts"
-                                                      })
-                                                }),
-                                            JsxRuntime.jsx(NavigationMenu.NavigationMenuItem, {
-                                                  children: JsxRuntime.jsx(NavigationBar$ListItem, {
-                                                        title: "About",
-                                                        href: "/about"
-                                                      })
-                                                })
-                                          ]
+                                    children: JsxRuntime.jsx(NavigationMenu.NavigationMenuList, {
+                                          children: JsxRuntime.jsx(NavigationMenu.NavigationMenuItem, {
+                                                children: JsxRuntime.jsx(NavigationBar$ListItem, {
+                                                      title: "About",
+                                                      href: "/about"
+                                                    })
+                                              })
                                         })
                                   }),
                               JsxRuntime.jsx(ThemeChangeButton.make, {})
