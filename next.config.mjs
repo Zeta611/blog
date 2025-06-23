@@ -7,11 +7,7 @@ const nextConfig = {
     return [
       {
         source: "/react-trace/:path*",
-        destination: "https://react-trace.netlify.app/:path*",
-      },
-      {
-        source: "/_next/:path*",
-        destination: "https://react-trace.netlify.app/_next/:path*",
+        destination: "https://react-trace.vercel.app/:path*",
       },
     ];
   },
