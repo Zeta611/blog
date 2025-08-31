@@ -1,6 +1,4 @@
-# 📝 jaylee.xyz
-
-This is the source code for [jaylee.xyz](https://jaylee.xyz), my personal blog and website.
+# 📝 Superceded by [jaynterpreter](https://github.com/Zeta611/jaynterpreter)
 
 ## Running
 
